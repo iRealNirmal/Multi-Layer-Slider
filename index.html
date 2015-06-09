@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" /> 
+<title>Anim Slider</title>
+<link rel='stylesheet' href='slider.css' type='text/css' />
+<script src="js/jquery.js"></script>
+<!-- <script src="js/TweenLite.min.js"></script> -->
+<script src="js/TweenMax.min.js"></script>
+<script src="js/jquery.gsap.min.js"></script>
+<script src="slider.js"></script>
+<style>
+body { background-color:#000; position:relative; font-size:14px; font-family:arial;color:#383839;}
+h4{
+    font-weight: lighter;
+  font-size: 40px;
+  color:#383839;
+}
+.el, .controllers{
+ color:#383839; 
+}
+</style>
+</head>
+<body>
+
+<div class="anim-slider">
+<div class="slide-container">
+   <div>
+      <img src="img/banner1N.jpg" alt="background-image"/>
+      <div class="el" data-from="left:120px;top:50px;rotationX:45;rotationY:45deg;" data-to="left:150px;top:50px;rotationX:0;rotationY:0;" data-delay="1000">
+          <h4>WE PROVIDE<br><b>HEALTHCARE SOLUTIONS</b></h4>
+      </div>
+        <div class="el" data-from="left:150px;top:350px;opacity:0;" data-to="left:150px;top:200px;scaleX:1;opacity:1;" data-delay="1500">We create, ameliorate, commercialize and<br/>
+endorse software products for managing healthcare<br/>
+organizations in various healthcare spectrums.</div>
+   </div>
+   <div>
+      <img src="img/2.jpg" alt="background-image" />
+      <div class="el" data-from="left:50px;top:50px;opacity:1;" data-to="left:250px;top:150;opacity:0.5;" data-delay="3500">Ramu</div>
+        <div class="el" data-from="left:50px;top:150px;" data-to="left:250px;top:150px;rotation:45;" data-delay="1000">Game</div>
+   </div>
+    <div>
+      <img src="img/3.jpg"  alt="background-image"/>
+   </div>
+   <div>
+      <img src="img/4.jpg" alt="background-image" />
+   </div>
+   <div>
+      <img src="img/5.jpg" />
+   </div>
+</div>
+<div class="controllers">
+  <ul class="triggers">
+   <li>0</li>
+   <li>1</li>
+   <li>2</li>
+   <li>3</li>
+   <li>4</li>
+</ul>
+<span class="control prev">Prev</span>
+<span class="control next">Next</span>
+</div>
+
+</div>
+<script>
+//we'll use a window.onload for simplicity, but typically it is best to use either jQuery's $(document).ready() or $(window).load() or cross-browser event listeners so that you're not limited to one.
+window.onload = function(){
+    // var logo = document.getElementById("logo");
+    // TweenLite.to(logo, 2, {css:{top:"20px", left:"650px",scaleX:0.5}});
+}
+var sliderSetting ={
+  slideTime : 5000,
+  defaultDelay:250,
+  height:800
+}
+// var triggers = $('ul.triggers li'); // numbering buttons in bottom
+// var images = $('div.images > div'); // background images
+// var imagesString = 'div.images > div';
+// var element = $('div.images .e1'); //animating elemenets
+// var lastElem = triggers.length-1; //length of element
+// var mask = $('.mask div.images'); //container
+// var imgWidth = images.width(); //image width
+// var target;
+// var tween;
+
+//custom function of jquery
+$.fn.hasAttr = function(name) {  //check if attribute exists
+   return this.attr(name) !== undefined;
+};
+$.fn.hasData = function(name) {  //check if data exists
+   return this.data(name) !== undefined;
+};
+
+$(document).ready(function(e) {
+  //$('#demo').greenify();
+ // valid.init();
+  slider.ready();
+  // element.each(function(e){//apply data from properies
+  //   $(this).attr('data-from',$(this).attr('style'));
+  // })
+  // target = $('ul.triggers li.selected'); //selecting first element
+  // animate(1);//begin animation with first slider
+});
+
+// triggers.first().addClass('selected');//add slected class
+// mask.css('width', imgWidth*(lastElem+1) +'px'); //slider container
+
+// function sliderResponse(target) {
+//     animate(target+1);
+//     mask.stop(true,false).animate({'left':'-'+ imgWidth*target +'px'},300);
+//     triggers.removeClass('selected').eq(target).addClass('selected');
+// }
+// function animate(target){
+// 	$(imagesString+':nth-child('+target+') > div').each(function(index, element) {
+// 		var e = ($(this).attr('data-to'));
+// 		var pd = e.split(";");
+// 		var ar = [];
+// 		 var i =0;
+// 		 while(i!=pd.length-1){
+// 			 var tmp = pd[i].split(":");
+// 			 ar[tmp[0]] = tmp[1];
+// 			 i++;
+// 		 }
+//   		tween = TweenLite.to($(this), 1, {css:
+//       ar,
+//       delay:parseInt(($(this).hasData('delay'))?$(this).data('delay'):0)/1000,
+//       onComplete:completeHandler($(this)),
+//       onCompleteParams:console.log('gr')});
+//     });	
+// }
+// function completeHandler(a){
+// 	a.attr('style',a.attr('data-from'));
+// }
+// triggers.click(function() {
+//     if ( !$(this).hasClass('selected') ) {
+//         target = $(this).index();
+//         sliderResponse(target);
+//         resetTiming();
+//     }
+// });
+// $('.next').click(function() {
+//     target = $('ul.triggers li.selected').index();
+//     target === lastElem ? target = 0 : target = target+1;
+//     sliderResponse(target);
+//     resetTiming();
+// });
+// $('.prev').click(function() {
+//     target = $('ul.triggers li.selected').index();
+//     lastElem = triggers.length-1;
+//     target === 0 ? target = lastElem : target = target-1;
+//     sliderResponse(target);
+//     resetTiming();
+// });
+// function sliderTiming() {
+//     target = $('ul.triggers li.selected').index();
+//     target === lastElem ? target = 0 : target = target+1;
+//     sliderResponse(target);
+// }
+// var timingRun = setInterval(function() { sliderTiming(); },5000);
+// function resetTiming() {
+//     clearInterval(timingRun);
+//     timingRun = setInterval(function() { sliderTiming(); },5000);
+// }
+
+</script>
+</body>
+</html>
