@@ -14,14 +14,19 @@ var sliderSetting ={
 var slider = (function() {
             return {
               sliderResponse: function (target) {
+                tween.restart(true);
                 slider.animate(target+1);
                 mask.stop(true,false).animate({'left':'-'+ imgWidth*target +'px'},300);
                 triggers.removeClass('selected').eq(target).addClass('selected');
               },
               animate:function(target){
-                $(imagesString+':nth-child('+target+') > div').each(function(index, element) {
-                  var e = ($(this).attr('data-to'));
+                //$(imagesString+':nth-child('+target+') > .el').attr('style','');
+                $(imagesString+':nth-child('+target+') > .el').each(function(index, element) {
                   var froms = ($(this).attr('data-from'));
+                  var e = ($(this).attr('data-to'));
+                  $(this).attr('style',froms);
+                  tween = new TimelineMax();
+                 // tween.restart(true);
                   var pd = e.split(";");
                   var pd1 = froms.split(";");
                   var arEnd = [];
@@ -38,15 +43,17 @@ var slider = (function() {
                      arStart[tmp[0]] = tmp[1];
                      fi++;
                    }
-                   console.log(parseInt(($(this).hasData('delay'))?$(this).data('delay'):defaultDelay)/1000)
-                    TweenLite.from($(this), 2, arStart);
-                    tween = TweenLite.to($(this), 1, {css:
+                   console.log(parseInt(($(this).hasData('delay'))?$(this).data('delay'):sliderSetting.defaultDelay)/1000)
+                    tween.from($(this), 2, arStart);
+                    tween.to($(this), 1, {css:
                     arEnd,
-                    delay:parseInt(($(this).hasData('delay'))?$(this).data('delay'):defaultDelay)/1000,
+                   // delay:parseInt(($(this).hasData('delay'))?$(this).data('delay'):defaultDelay)/1000,
+                   // repeatDelays:parseInt(($(this).hasData('delay'))?$(this).data('delay'):defaultDelay)/1000,
                     onComplete:slider.completeHandler($(this)),
                     onCompleteParams:console.log('gr'),
-ease:Linear.easeNone
+                    ease:Linear.easeNone
                   });
+                    tween.delay(parseInt(($(this).hasData('delay'))?$(this).data('delay'):sliderSetting.defaultDelay)/1000);
                   }); 
               },
               completeHandler:function(a){
@@ -57,8 +64,10 @@ ease:Linear.easeNone
                   target = $('ul.triggers li.selected').index();
                   target === lastElem ? target = 0 : target = target+1;
                   slider.sliderResponse(target);
+
               },
               resetTiming:function () {
+                            
                   clearInterval(timingRun);
                 //  console.log(sliderSetting['slideTime'])
                   timingRun = setInterval(function() { slider.sliderTiming(); },sliderSetting['slideTime']);
