@@ -1,4 +1,4 @@
-var triggers,images,imagesString,element,lastElem,mask,imgWidth,target,tween,timingRun;
+var triggers,images,imagesString,element,lastElem,mask,imgWidth,target,tween,timingRun,imgHeight;
 var sliderSetting ={
   slideTime : 5000,
   defaultDelay:0,
@@ -14,17 +14,22 @@ var sliderSetting ={
 var slider = (function() {
             return {
               sliderResponse: function (target) {
-                tween.restart(true);
+                
                 slider.animate(target+1);
+                //tween.restart(true);
+                $(imagesString+':nth-child('+target+') > .el').each(function(index, element) {
+                  $(this).attr('style',$(this).data('from'));
+                });
                 mask.stop(true,false).animate({'left':'-'+ imgWidth*target +'px'},300);
                 triggers.removeClass('selected').eq(target).addClass('selected');
               },
               animate:function(target){
                 //$(imagesString+':nth-child('+target+') > .el').attr('style','');
                 $(imagesString+':nth-child('+target+') > .el').each(function(index, element) {
-                  var froms = ($(this).attr('data-from'));
-                  var e = ($(this).attr('data-to'));
+                  var froms = $(this).attr('data-from');
                   $(this).attr('style',froms);
+                  var e = $(this).attr('data-to');
+                  
                   tween = new TimelineMax();
                  // tween.restart(true);
                   var pd = e.split(";");
@@ -43,7 +48,7 @@ var slider = (function() {
                      arStart[tmp[0]] = tmp[1];
                      fi++;
                    }
-                   console.log(parseInt(($(this).hasData('delay'))?$(this).data('delay'):sliderSetting.defaultDelay)/1000)
+               //    console.log(parseInt(($(this).hasData('delay'))?$(this).data('delay'):sliderSetting.defaultDelay)/1000)
                     tween.from($(this), 2, arStart);
                     tween.to($(this), 1, {css:
                     arEnd,
@@ -57,7 +62,7 @@ var slider = (function() {
                   }); 
               },
               completeHandler:function(a){
-                a.attr('style','');
+                a.attr('style',$(this).data('from'));
               },
               
               sliderTiming :function () {
@@ -76,6 +81,7 @@ var slider = (function() {
                 triggers.first().addClass('selected');//add slected class
                 mask.width(imgWidth*(lastElem+1)); //slider container
                 images.width(imgWidth);
+                images.height(imgHeight);
                 element.each(function(e){//apply data from properies
                   $(this).attr('style',$(this).attr('data-from'));
                 })
@@ -87,10 +93,13 @@ var slider = (function() {
               },
               resize:function(){
                 imgWidth = $(window).width(); //image width
+                imgHeight = $(window).height(); //image width
                 $('.anim-slider .controllers').width(imgWidth);
                 images.width(imgWidth);
+                images.height(imgHeight);
                 images.children('img').css('minHeight','');
-                $('.anim-slider').height(images.first().children('img').height());
+             // $('.anim-slider').height(images.first().children('img').height());
+             $('.anim-slider').height(imgHeight);
                 console.log($('.controllers ul li.selected').index());
                 slider.sliderResponse($('.controllers ul li.selected').index());
               },
@@ -103,14 +112,18 @@ var slider = (function() {
                   lastElem = triggers.length-1; //length of element
                   mask = $('.anim-slider div.slide-container'); //container
                   imgWidth = $(window).width(); //image width
+                  imgHeight = $(window).height(); //image height
                   $('.anim-slider .controllers').width(imgWidth);
-                  $('.anim-slider').height(sliderSetting['height']);
+                  $('.anim-slider').height($(window).height());
                   images.children('img').css('minHeight',sliderSetting['height']);
                   triggers.click(function() {
                       if ( !$(this).hasClass('selected') ) {
+                      // console.log(tween.isActive())
+                          tween.kill()
                           target = $(this).index();
                           slider.sliderResponse(target);
                           slider.resetTiming();
+
                       }
                   });
                   $('.next').click(function() {

@@ -23,9 +23,9 @@ div.slide-container div .slider3  { 	margin: 0;
     .controllers ul li.selected {background-color:red; color:#000;}
 
 
-.control {position:absolute; top: 380px; color:#fff; cursor:pointer;}
-.prev { left:120px; }
-.next { left:180px; }
+.control {position:absolute; top: 50%; margin-top: -28px; color:#fff; cursor:pointer;z-index:500;font-size: 24px;}
+.prev { left:50px; }
+.next { right:50px; }
 .el { position:absolute; z-index:50; font-weight:bold; color:#fff; }
 .nb-perspective {
 	position: relative;
@@ -48,6 +48,36 @@ div.slide-container div .slider3  { 	margin: 0;
 }
 .nb-side {
 
+}
+.slide-container>div{
+	background-size: cover;
+}
+.bg-top-left{
+	background-position: top left;
+}
+.bg-top-center{
+	background-position: top center;
+}
+.bg-top-right{
+	background-position: top right;
+}
+.bg-center-left{
+	background-position: center left;
+}
+.bg-center-center{
+	background-position: center center;
+}
+.bg-center-right{
+	background-position: center right;
+}
+.bg-bottom-left{
+	background-position: bottom left;
+}
+.bg-bottom-center{
+	background-position: bottom center;
+}
+.bg-bottom-right{
+	background-position: bottom right;
 }
 @-webkit-keyframes progress-bar {
    0% { left: 0; }

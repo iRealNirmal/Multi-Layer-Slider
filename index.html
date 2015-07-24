@@ -3,31 +3,32 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" /> 
-<title>Anim Slider</title>
+<title>Multi Layer Slider</title>
 <link rel='stylesheet' href='slider.css' type='text/css' />
+<link rel='stylesheet' href='css/font-awesome.min.css' type='text/css' />
 <script src="js/jquery.js"></script>
 <!-- <script src="js/TweenLite.min.js"></script> -->
 <script src="js/TweenMax.min.js"></script>
 <script src="js/jquery.gsap.min.js"></script>
 <script src="slider.js"></script>
 <style>
-body { background-color:#000; position:relative; font-size:14px; font-family:arial;color:#383839;}
+body { background-color:#000; position:relative; font-size:14px; font-family:arial;color:#383839;padding:0;margin:0;}
 h4{
     font-weight: lighter;
   font-size: 40px;
-  color:#383839;
+  color:#fff;
 }
 .el, .controllers{
- color:#383839; 
+ color:#fff; 
 }
 </style>
 </head>
 <body>
 
-<div class="anim-slider">
+<div class="anim-slider" data-full>
 <div class="slide-container">
-   <div>
-      <img src="img/1.jpg" alt="background-image"/>
+   <div style="background-image:url('img/1.jpg');" class="bg-center-center">
+      <!-- <img src="img/1.jpg" alt="background-image"/> -->
       <div class="el" data-from="left:120px;top:50px;rotationX:45;rotationY:45deg;" data-to="left:150px;top:50px;rotationX:0;rotationY:0;" data-delay="1000">
           <h4>WE PROVIDE<br><b>HEALTHCARE SOLUTIONS</b></h4>
       </div>
@@ -35,16 +36,13 @@ h4{
 endorse software products for managing healthcare<br/>
 organizations in various healthcare spectrums.</div>
    </div>
-   <div>
-      <img src="img/2.jpg" alt="background-image" />
-      <div class="el" data-from="left:50px;top:50px;opacity:1;" data-to="left:250px;top:150;opacity:0.5;" data-delay="3500">Ramu</div>
-        <div class="el" data-from="left:50px;top:150px;" data-to="left:250px;top:150px;rotation:45;" data-delay="1000">Game</div>
+   <div style="background-image:url('img/2.jpg');" class="bg-center-center">
+      <div class="el" data-from="left:-50px;top:50px;opacity:1;" data-to="left:250px;top:150;opacity:0.5;" data-delay="1500">Ramu</div>
+        <div class="el" data-from="left:-50px;top:150px;" data-to="left:250px;top:150px;rotation:45;" data-delay="1000">Game</div>
    </div>
-    <div>
-      <img src="img/3.jpg"  alt="background-image"/>
+    <div style="background-image:url('img/3.jpg');" class="bg-center-center">
    </div>
-   <div>
-      <img src="img/4.jpg" alt="background-image" />
+   <div style="background-image:url('img/4.jpg');" class="bg-center-center">
    </div>
    <div>
       <img src="img/5.jpg" />
@@ -58,8 +56,8 @@ organizations in various healthcare spectrums.</div>
    <li>3</li>
    <li>4</li>
 </ul>
-<span class="control prev">Prev</span>
-<span class="control next">Next</span>
+<span class="control prev"><i class="fa fa-chevron-left"></i></span>
+<span class="control next"> <i class="fa fa-chevron-right"></i> </span>
 </div>
 
 </div>
