@@ -4,6 +4,7 @@ var sliderSetting ={
   defaultDelay:0,
   height:500
 }
+var elm=$('.anim-slider');
 // var valid =   (function (iv,dv){
 //   return{
 //     init:function(e){
@@ -31,7 +32,6 @@ var slider = (function() {
                   var e = $(this).attr('data-to');
                   
                   tween = new TimelineMax();
-                 // tween.restart(true);
                   var pd = e.split(";");
                   var pd1 = froms.split(";");
                   var arEnd = [];
@@ -48,21 +48,22 @@ var slider = (function() {
                      arStart[tmp[0]] = tmp[1];
                      fi++;
                    }
-               //    console.log(parseInt(($(this).hasData('delay'))?$(this).data('delay'):sliderSetting.defaultDelay)/1000)
-                    tween.from($(this), 2, arStart);
-                    tween.to($(this), 1, {css:
-                    arEnd,
-                   // delay:parseInt(($(this).hasData('delay'))?$(this).data('delay'):defaultDelay)/1000,
-                   // repeatDelays:parseInt(($(this).hasData('delay'))?$(this).data('delay'):defaultDelay)/1000,
-                    onComplete:slider.completeHandler($(this)),
-                    onCompleteParams:console.log('gr'),
-                    ease:Linear.easeNone
-                  });
-                    tween.delay(parseInt(($(this).hasData('delay'))?$(this).data('delay'):sliderSetting.defaultDelay)/1000);
+                   tween.fromTo($(this), 1,{css:arStart}, {css:
+                   arEnd,
+                   delay:(parseInt(($(this).hasData('delay'))?$(this).data('delay'):sliderSetting.defaultDelay)/1000),
+                   onComplete:slider.completeHandler($(this),tween),
+                   ease:Linear.easeNone
+                 });
                   }); 
               },
-              completeHandler:function(a){
-                a.attr('style',$(this).data('from'));
+              completeHandler:function(a,b){
+              //  console.log($(this).attr('data-from'))
+            //    a.attr('style','');
+          //  var prop = 
+       //   console.log(a.data('from'))
+        //        b.kill()
+         //       a.attr('style',a.data('from'));
+              //  console.log(a.attr('style'))
               },
               
               sliderTiming :function () {
@@ -92,15 +93,13 @@ var slider = (function() {
                 })
               },
               resize:function(){
-                imgWidth = $(window).width(); //image width
-                imgHeight = $(window).height(); //image width
+                imgWidth = (elm.data('width')=="full")?$(window).width():elm.data('width') //image width
+                imgHeight = (elm.data('height')=="full")?$(window).height():elm.data('height'); //image width
                 $('.anim-slider .controllers').width(imgWidth);
                 images.width(imgWidth);
                 images.height(imgHeight);
                 images.children('img').css('minHeight','');
-             // $('.anim-slider').height(images.first().children('img').height());
-             $('.anim-slider').height(imgHeight);
-                console.log($('.controllers ul li.selected').index());
+                $('.anim-slider').height(imgHeight);
                 slider.sliderResponse($('.controllers ul li.selected').index());
               },
               ready:function(){
@@ -118,7 +117,6 @@ var slider = (function() {
                   images.children('img').css('minHeight',sliderSetting['height']);
                   triggers.click(function() {
                       if ( !$(this).hasClass('selected') ) {
-                      // console.log(tween.isActive())
                           tween.kill()
                           target = $(this).index();
                           slider.sliderResponse(target);
