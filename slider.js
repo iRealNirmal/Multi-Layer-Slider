@@ -1,10 +1,9 @@
-var triggers,images,imagesString,element,lastElem,mask,imgWidth,target,tween,timingRun,imgHeight;
+var triggers,images,elm,imagesString,element,lastElem,mask,imgWidth,target,tween,timingRun,imgHeight;
 var sliderSetting ={
   slideTime : 5000,
   defaultDelay:0,
   height:500
 }
-var elm=$('.anim-slider');
 // var valid =   (function (iv,dv){
 //   return{
 //     init:function(e){
@@ -104,14 +103,15 @@ var slider = (function() {
               },
               ready:function(){
                 $(document).ready(function(e){
+                  elm=$('.anim-slider');
                   triggers = $('ul.triggers li'); // numbering buttons in bottom
                   images = $('div.slide-container > div'); // background images
                   imagesString = 'div.slide-container > div';
                   element = $('div.slide-container .el'); //animating elemenets
                   lastElem = triggers.length-1; //length of element
                   mask = $('.anim-slider div.slide-container'); //container
-                  imgWidth = $(window).width(); //image width
-                  imgHeight = $(window).height(); //image height
+                  imgWidth = (elm.data('width')=="full")?$(window).width():elm.data('width') //image width
+                  imgHeight = (elm.data('height')=="full")?$(window).height():elm.data('height'); //image width
                   $('.anim-slider .controllers').width(imgWidth);
                   $('.anim-slider').height($(window).height());
                   images.children('img').css('minHeight',sliderSetting['height']);
